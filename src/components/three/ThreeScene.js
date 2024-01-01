@@ -17,13 +17,13 @@ const ThreeScene = () => {
     const { camera } = useThree();
 
     useFrame(() => {
-        // 캐릭터가 목표 지점에 도달할 때까지 위치를 점진적으로 업데이트
         const character = characterRef.current;
         const speed = 0.1; // 이동 속도
         const cameraHeight = 10; // 카메라 높이 설정
-        const halfMapSize = 25; // 맵의 한 변의 절반 크기
+        const halfMapSize = 50; // 맵의 한 변의 절반 크기
 
         if (character) {
+            // 캐릭터의 새로운 위치 계산
             let newX = character.position.x + (targetPosition[0] - character.position.x) * speed;
             let newZ = character.position.z + (targetPosition[2] - character.position.z) * speed;
 
@@ -41,8 +41,8 @@ const ThreeScene = () => {
             camera.position.z = newZ;
             camera.lookAt(newX, character.position.y, newZ);
         }
-
     });
+
 
     const onPlaneClick = (e) => {
         // 클릭된 지점의 위치를 가져와서 캐릭터의 위치로 설정
@@ -52,8 +52,8 @@ const ThreeScene = () => {
 
     return (
         <>
-            <Plane onClick={onPlaneClick} args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-                <meshStandardMaterial attach="material" map={mapTexture} />
+            <Plane onClick={onPlaneClick} args={[200, 200]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+                <meshStandardMaterial attach="material" color="white" map={mapTexture} />
             </Plane>
             <Sphere ref={characterRef} args={[1, 32, 32]} position={[0, 1, 0]}>
                 <meshStandardMaterial attach="material" color="red" />
